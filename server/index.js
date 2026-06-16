@@ -20,10 +20,10 @@ Attach Socket.IO to HTTP Server
 */
 const io = new Server(server, {
   cors: {
-      origin: [
-      "http://localhost:5173",
-      "https://your-vercel-app.vercel.app",
-    ],
+  origin: [
+  "http://localhost:5173",
+ "https://codesync-xyz.vercel.app",
+],
     methods: ["GET", "POST"],
   },
 });
