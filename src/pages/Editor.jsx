@@ -1,4 +1,7 @@
-
+import { Code2 } from "lucide-react";
+import CodeEditor from "../components/editor/CodeEditor";
+import RoomControls from "../components/editor/RoomControls";
+import Participants from "../components/editor/Participants";
 import { useLocation, useParams } from "react-router-dom";
 import {
   useEffect,
@@ -7,7 +10,7 @@ import {
 } from "react";
 
 import socket from "../services/socket";
-import MonacoEditor from "@monaco-editor/react";
+
 import { useNavigate } from "react-router-dom";
 
 export default function Editor() {
@@ -151,65 +154,63 @@ const leaveRoom = () => {
   navigate("/");
 };
 
-  return (
-    <div>
-    
-      
-      <h2>Editor Page</h2>
+ return (
+  <div className="h-screen bg-slate-900 text-white flex">
 
-      <p>
-        Welcome, {username}
-      </p>
+    {/* Sidebar */}
+    <div className="w-72 bg-slate-800 p-5 flex flex-col">
 
-      <p>
-        Room ID: {roomId}
-      </p>
-      <button onClick={copyRoomId}>
-  📋 Copy Room ID
-</button>
+     <div className="flex items-center gap-2 mb-2">
+  <Code2 size={32} />
+  <h1 className="text-3xl font-bold">
+    CodeSync
+  </h1>
+</div>
 
+      <div className="bg-slate-700 p-3 rounded-lg mb-6">
+  <p className="text-slate-400 text-sm">
+    Logged in as
+  </p>
 
-      <h3>Participants</h3>
+  <p className="font-semibold mt-1">
+    {username}
+  </p>
+</div>
 
-      <ul>
-        {users.map((user) => (
-          <li key={user.socketId}>
-            🟢 {user.username}
-          </li>
-        ))}
-      </ul>
+      <div className="bg-slate-700 p-4 rounded-xl mb-6">
+        <p className="text-sm text-slate-300">
+          Room ID
+        </p>
 
-      <MonacoEditor
-        height="80vh"
-        language="javascript"
-        theme="vs-dark"
-        value={code}
-        onChange={(value) => {
-          const newCode =
-            value || "";
+        <p className="break-all text-sm mt-1">
+          {roomId}
+        </p>
+      </div>
 
-          setCode(newCode);
-
-          if (
-            isRemoteUpdate.current
-          ) {
-            isRemoteUpdate.current = false;
-            return;
-          }
-
-          socket.emit(
-            "CODE_CHANGE",
-            {
-            
-              code: newCode,
-            }
-          );
-        }}
+      <RoomControls
+        roomId={roomId}
+        copyRoomId={copyRoomId}
+        leaveRoom={leaveRoom}
       />
-      <button onClick={leaveRoom}>
-  🚪 Leave Room
-</button>
+      <hr className="my-6 border-slate-700" />
+
+      <div className="mt-6">
+        <Participants users={users} />
+      </div>
+
     </div>
-  );
+
+    {/* Editor Area */}
+    <div className="flex-1 overflow-hidden">
+      <CodeEditor
+        code={code}
+        setCode={setCode}
+        socket={socket}
+        isRemoteUpdate={isRemoteUpdate}
+      />
+    </div>
+
+  </div>
+);
 }
 
