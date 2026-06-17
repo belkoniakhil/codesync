@@ -22,6 +22,7 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:5173",
+      "https://codesync-wine.vercel.app/",
       "https://codesync-dtvrelxg7-akhilbelkoni-s-projects.vercel.app",
     ],
     methods: ["GET", "POST"],
