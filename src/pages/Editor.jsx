@@ -1,3 +1,4 @@
+import Chat from "../components/editor/Chat";
 import { Code2 } from "lucide-react";
 import CodeEditor from "../components/editor/CodeEditor";
 import RoomControls from "../components/editor/RoomControls";
@@ -226,7 +227,14 @@ const leaveRoom = () => {
 
         <hr className="my-6 border-slate-700" />
 
-        <Participants users={users} />
+        <Participants
+  users={users}
+/>
+
+<Chat
+  roomId={roomId}
+  username={username}
+/>
 
         <div className="mt-auto pt-6 text-center text-xs text-slate-500">
           CodeSync v1.0

@@ -8,7 +8,7 @@ export default function Participants({
       <div className="flex items-center gap-2 mb-3">
   <Users size={20} />
   <h3 className="text-lg font-semibold">
-    Participants
+    Participants ({users.length})
   </h3>
 </div>
       <div className="space-y-2">
