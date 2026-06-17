@@ -21,11 +21,10 @@ Attach Socket.IO to HTTP Server
 */
 const io = new Server(server, {
   cors: {
-      origin: "*",
-    // origin: [
-    //   "http://localhost:5173",
-    //   "https://codesync-wine.vercel.app/",
-    // ],
+    origin: [
+      "http://localhost:5173",
+      "https://codesync-wine.vercel.app",
+    ],
     methods: ["GET", "POST"],
   },
 });
